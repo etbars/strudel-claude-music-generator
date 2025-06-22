@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minimal Strudel Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #1a1a1a;
+            color: white;
+        }
+        
+        strudel-editor {
+            display: block;
+            width: 100%;
+            height: 400px;
+            border: 2px solid #333;
+            background: #2a2a2a;
+            margin: 20px 0;
+        }
+        
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        
+        button:hover {
+            background: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Minimal Strudel Test</h1>
+    
+    <p>This is a minimal test following the exact official documentation:</p>
+    
+    <!-- Exact copy from official docs -->
+    <script src="https://unpkg.com/@strudel/repl@latest"></script>
+    
+    <strudel-editor id="testEditor">
+        <!-- 
+        setcps(1)
+        sound("bd hh sd hh")
+          .gain(0.7)
+        -->
+    </strudel-editor>
+    
+    <div>
+        <button onclick="testLoad()">Load New Code</button>
+        <button onclick="testClear()">Clear Code</button>
+        <button onclick="debugComponent()">Debug Component</button>
+    </div>
+    
+    <div id="output"></div>
+    
+    <script>
+        function log(message) {
+            console.log(message);
+            document.getElementById('output').innerHTML += '<div>' + message + '</div>';
+        }
+        
+        function testLoad() {
+            const editor = document.getElementById('testEditor');
+            const newCode = `setcps(1)
+sound("bd sd bd sd")
+  .gain(0.8)
+  .room(0.3)`;
+            
+            log('Loading new code...');
+            editor.innerHTML = `<!-- ${newCode} -->`;
+            log('Code loaded via innerHTML');
+        }
+        
+        function testClear() {
+            const editor = document.getElementById('testEditor');
+            log('Clearing code...');
+            editor.innerHTML = '<!-- -->';
+            log('Code cleared');
+        }
+        
+        function debugComponent() {
+            const editor = document.getElementById('testEditor');
+            log('=== COMPONENT DEBUG ===');
+            log('Element found: ' + !!editor);
+            log('Tag name: ' + editor.tagName);
+            log('Children count: ' + editor.children.length);
+            log('Shadow root: ' + editor.shadowRoot);
+            log('Offset width: ' + editor.offsetWidth);
+            log('Offset height: ' + editor.offsetHeight);
+            log('innerHTML: ' + editor.innerHTML);
+            
+            // Check for any properties
+            log('Editor property: ' + !!editor.editor);
+            if (editor.editor) {
+                log('Editor type: ' + typeof editor.editor);
+                log('Editor methods: ' + Object.getOwnPropertyNames(editor.editor));
+            }
+            
+            // Check if it's a custom element
+            log('Custom element defined: ' + !!customElements.get('strudel-editor'));
+        }
+        
+        // Auto-debug on load
+        setTimeout(() => {
+            log('Auto-debugging after 3 seconds...');
+            debugComponent();
+        }, 3000);
+    </script>
+</body>
+</html>

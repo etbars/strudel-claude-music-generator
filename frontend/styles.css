@@ -63,12 +63,11 @@ h2 {
 
 /* Strudel Player Section */
 .strudel-player-section {
-  background: white;
+  background: #f8f9fa;
   border-radius: 12px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  padding: 0;
-  margin-top: 2rem;
-  overflow: hidden;
+  padding: 20px;
+  margin: 20px 0;
 }
 
 .player-header {
@@ -150,17 +149,18 @@ h2 {
 }
 
 .player-content {
-  padding: 2rem;
+  padding: 0;
+  background: transparent;
 }
 
 .player-status {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  margin-bottom: 1.5rem;
-  padding: 0.75rem 1rem;
+  margin-bottom: 0.25rem;
+  padding: 0.25rem 0.5rem;
   background: #f8fafc;
-  border-radius: 8px;
+  border-radius: 4px;
   border-left: 4px solid #8b5cf6;
 }
 
@@ -191,39 +191,36 @@ h2 {
 }
 
 .strudel-container {
+  display: block;
   width: 100%;
-  height: 500px;
-  border-radius: 8px;
-  overflow: hidden;
-  border: 2px solid #e5e7eb;
+  height: 70vh;
   background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 8px;
+  margin: 0;
+  padding: 0;
 }
 
 .strudel-container strudel-editor {
   width: 100%;
   height: 100%;
-  display: block;
+  display: block !important;
+  visibility: visible !important;
+  background: #1e1e1e !important;
+  border: none;
 }
 
 .strudel-container strudel-editor .cm-editor {
   height: 100%;
-  background: #1e1e1e;
-  color: #d4d4d4;
+  background: #1e1e1e !important;
+  color: #ffffff !important;
+  border: none !important;
 }
 
 .strudel-container strudel-editor .cm-content {
-  padding: 10px;
-  min-height: 100%;
-}
-
-.strudel-container strudel-editor .cm-focused {
-  outline: none;
-}
-
-.strudel-container strudel-editor .cm-scroller {
-  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-  font-size: 14px;
-  line-height: 1.5;
+  padding: 0;
+  background: #1e1e1e !important;
+  color: #ffffff !important;
 }
 
 /* Responsive Design */
@@ -247,10 +244,6 @@ h2 {
   .player-content {
     padding: 1rem;
   }
-  
-  .strudel-container {
-    height: 400px;
-  }
 }
 
 @media (max-width: 480px) {
@@ -261,10 +254,6 @@ h2 {
   
   .player-controls .btn {
     width: 100%;
-  }
-  
-  .strudel-container {
-    height: 350px;
   }
 }
 
@@ -422,7 +411,7 @@ footer a:hover {
 /* Additional button styling */
 textarea {
   width: 100%;
-  height: 150px;
+  height: 80px;
   padding: 12px;
   border: 1px solid var(--border-color);
   border-radius: 4px;

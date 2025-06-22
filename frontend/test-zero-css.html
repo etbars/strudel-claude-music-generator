@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Zero CSS Strudel Test</title>
+</head>
+<body>
+    <h1>Zero CSS Strudel Test</h1>
+    
+    <h2>@strudel/embed + strudel-repl</h2>
+    <script src="https://unpkg.com/@strudel/embed@latest"></script>
+    <strudel-repl>
+        <!-- 
+        setcps(1)
+        sound("bd hh sd hh")
+        -->
+    </strudel-repl>
+    
+    <script>
+        console.log('Zero CSS test loaded');
+        
+        setTimeout(() => {
+            const repl = document.querySelector('strudel-repl');
+            console.log('strudel-repl element:', repl);
+            console.log('strudel-repl computed style:', window.getComputedStyle(repl));
+            console.log('strudel-repl children:', repl.children);
+        }, 3000);
+    </script>
+</body>
+</html>

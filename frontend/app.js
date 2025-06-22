@@ -85,26 +85,59 @@ async function initializeStrudel() {
         console.log('✅ Strudel initialization complete');
         updateStatus('ready', 'Ready to generate music');
         
-        // Test the component with a simple pattern
+        // Force the Strudel editor to show its interface
         const strudelEditor = document.querySelector('strudel-editor');
         if (strudelEditor) {
-            console.log('🧪 Testing Strudel with simple pattern...');
-            const testCode = `// Test pattern - simple beat
-$: s("bd ~ sd ~")`;
+            console.log('🎨 Forcing Strudel editor to show interface...');
             
-            // Try the HTML comment method
-            strudelEditor.innerHTML = `<!-- ${testCode} -->`;
-            console.log('✅ Test pattern loaded via HTML comments');
+            // Force the editor to render by setting initial code
+            const initialCode = `// Welcome to Strudel!
+// Generate music above and it will appear here
+$: s("bd ~ sd ~").slow(2)`;
             
-            // Wait and check if it worked
+            // Use innerHTML method to trigger rendering
+            strudelEditor.innerHTML = `<!-- ${initialCode} -->`;
+            
+            // Force visibility and display
+            strudelEditor.style.display = 'block';
+            strudelEditor.style.visibility = 'visible';
+            strudelEditor.style.opacity = '1';
+            
+            // Try to trigger the editor to show
             setTimeout(() => {
-                if (strudelEditor.innerHTML.includes(testCode)) {
-                    console.log('✅ Test pattern successfully integrated');
+                if (strudelEditor.editor) {
+                    console.log('🎛️ Using editor API to show interface...');
+                    strudelEditor.editor.setCode(initialCode);
+                    strudelEditor.editor.evaluate();
                 } else {
-                    console.log('⚠️ Test pattern may not have integrated properly');
+                    console.log('📝 Editor API not available, using innerHTML method');
                 }
-            }, 1000);
+            }, 500);
+            
+            console.log('✅ Strudel interface should now be visible');
         }
+        
+        // Test the component with a simple pattern
+        setTimeout(() => {
+            if (strudelEditor) {
+                console.log('🧪 Testing Strudel with simple pattern...');
+                const testCode = `// Test pattern - simple beat
+$: s("bd ~ sd ~")`;
+                
+                // Try the HTML comment method
+                strudelEditor.innerHTML = `<!-- ${testCode} -->`;
+                console.log('✅ Test pattern loaded via HTML comments');
+                
+                // Wait and check if it worked
+                setTimeout(() => {
+                    if (strudelEditor.innerHTML.includes(testCode)) {
+                        console.log('✅ Test pattern successfully integrated');
+                    } else {
+                        console.log('⚠️ Test pattern may not have integrated properly');
+                    }
+                }, 1000);
+            }
+        }, 1000);
         
     } catch (error) {
         console.error('❌ Error initializing Strudel:', error);

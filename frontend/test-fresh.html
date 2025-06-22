@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fresh Strudel Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f0f0f0;
+        }
+        
+        .test-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ccc;
+            background: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>Fresh Strudel Test - Official Documentation Method</h1>
+    
+    <div class="test-section">
+        <h2>Test 1: @strudel/embed + strudel-repl</h2>
+        <script src="https://unpkg.com/@strudel/embed@latest"></script>
+        <strudel-repl>
+            <!-- 
+            setcps(1)
+            sound("bd hh sd hh")
+              .gain(0.7)
+            -->
+        </strudel-repl>
+    </div>
+    
+    <div class="test-section">
+        <h2>Test 2: @strudel/repl + strudel-editor</h2>
+        <script src="https://unpkg.com/@strudel/repl@latest"></script>
+        <strudel-editor>
+            <!-- 
+            setcps(1)
+            sound("bd hh sd hh")
+              .gain(0.7)
+            -->
+        </strudel-editor>
+    </div>
+    
+    <div class="test-section">
+        <h2>Test 3: Simple iframe</h2>
+        <iframe src="https://strudel.cc/#c2V0Y3BzKDEpCnNvdW5kKCJiZCBoaCBzZCBoaCIpCiAgLmdhaW4oMC43KQ%3D%3D" 
+                width="600" height="300"></iframe>
+    </div>
+    
+    <script>
+        console.log('Fresh test page loaded');
+        
+        // Check what components are available
+        setTimeout(() => {
+            console.log('Checking components...');
+            
+            const replComponent = document.querySelector('strudel-repl');
+            const editorComponent = document.querySelector('strudel-editor');
+            
+            console.log('strudel-repl found:', !!replComponent);
+            console.log('strudel-editor found:', !!editorComponent);
+            
+            if (replComponent) {
+                console.log('strudel-repl properties:', Object.keys(replComponent));
+                console.log('strudel-repl innerHTML:', replComponent.innerHTML);
+            }
+            
+            if (editorComponent) {
+                console.log('strudel-editor properties:', Object.keys(editorComponent));
+                console.log('strudel-editor innerHTML:', editorComponent.innerHTML);
+            }
+        }, 3000);
+    </script>
+</body>
+</html>
