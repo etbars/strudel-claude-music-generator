@@ -142,7 +142,7 @@ Generate sophisticated Strudel code that showcases the full capabilities of the 
 export async function generateStrudelCode(prompt) {
   try {
     const response = await client.messages.create({
-      model: "claude-3-5-sonnet-20240620",
+      model: "claude-sonnet-4-20250514",
       max_tokens: 1000,
       system: SYSTEM_PROMPT,
       messages: [

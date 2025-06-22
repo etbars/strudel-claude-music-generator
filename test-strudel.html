@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Strudel Integration</title>
+</head>
+<body>
+    <h1>Test Strudel Integration</h1>
+    
+    <h2>Method 1: Static Code in HTML</h2>
+    <strudel-editor style="width: 100%; height: 300px; border: 1px solid #ccc;">
+        <!-- 
+        setcps(1)
+        s("bd sd hh cp")
+        -->
+    </strudel-editor>
+    
+    <h2>Method 2: Dynamic Code via setAttribute</h2>
+    <strudel-editor id="dynamic-editor-attr" style="width: 100%; height: 300px; border: 1px solid #ccc;">
+        <!-- Initial code -->
+    </strudel-editor>
+    
+    <button onclick="loadCodeWithAttribute()">Load Code with setAttribute</button>
+    
+    <h2>Method 3: Dynamic Code via .editor API</h2>
+    <strudel-editor id="dynamic-editor-api" style="width: 100%; height: 300px; border: 1px solid #ccc;">
+        <!-- Initial code -->
+    </strudel-editor>
+    
+    <button onclick="loadCodeWithAPI()">Load Code with .editor API</button>
+    
+    <script src="https://unpkg.com/@strudel/repl@latest"></script>
+    <script>
+        console.log('🔧 Script loaded, testing Strudel integration...');
+        
+        const testCode = `
+setcps(1.5)
+stack(
+    s("bd*2 sd bd sd"),
+    s("hh*8").gain(0.3),
+    n("c3 eb3 f3 g3").s("triangle").room(0.5)
+)`;
+        
+        function loadCodeWithAttribute() {
+            console.log('🎵 Loading code with setAttribute...');
+            const editor = document.getElementById('dynamic-editor-attr');
+            console.log('🔍 Editor element:', editor);
+            
+            editor.setAttribute('code', testCode);
+            console.log('✅ Code set via setAttribute');
+        }
+        
+        function loadCodeWithAPI() {
+            console.log('🎵 Loading code with .editor API...');
+            const editor = document.getElementById('dynamic-editor-api');
+            console.log('🔍 Editor element:', editor);
+            console.log('🔍 Editor .editor property:', editor.editor);
+            
+            if (editor.editor) {
+                try {
+                    editor.editor.setCode(testCode);
+                    console.log('✅ setCode() called');
+                    
+                    editor.editor.evaluate();
+                    console.log('✅ evaluate() called');
+                    
+                    if (typeof editor.editor.start === 'function') {
+                        editor.editor.start();
+                        console.log('✅ start() called');
+                    }
+                } catch (error) {
+                    console.error('💥 Error with .editor API:', error);
+                }
+            } else {
+                console.log('⚠️ .editor not available, trying setAttribute fallback...');
+                editor.setAttribute('code', testCode);
+            }
+        }
+        
+        // Test if web component is loaded
+        setTimeout(() => {
+            console.log('🔍 Checking if strudel-editor is defined...');
+            console.log('customElements.get("strudel-editor"):', customElements.get('strudel-editor'));
+            
+            const editors = document.querySelectorAll('strudel-editor');
+            console.log('🔍 Found editors:', editors.length);
+            editors.forEach((editor, i) => {
+                console.log(`Editor ${i}:`, editor);
+                console.log(`Editor ${i} .editor:`, editor.editor);
+                if (editor.editor) {
+                    console.log(`Editor ${i} .editor methods:`, Object.getOwnPropertyNames(editor.editor));
+                }
+            });
+        }, 2000);
+    </script>
+</body>
+</html>

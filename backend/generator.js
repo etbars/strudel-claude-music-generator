@@ -86,7 +86,7 @@ Create the final Strudel code that sounds great and is ready to play.`;
 async function generateStructure(prompt) {
   try {
     const response = await client.messages.create({
-      model: "claude-3-5-sonnet-20240620",
+      model: "claude-sonnet-4-20250514",
       max_tokens: 500,
       system: STRUCTURE_PROMPT,
       messages: [
@@ -125,7 +125,7 @@ async function generateInstrumentation(structure) {
     const genreSounds = getSoundsByGenre(structure.genre);
     
     const response = await client.messages.create({
-      model: "claude-3-5-sonnet-20240620",
+      model: "claude-sonnet-4-20250514",
       max_tokens: 400,
       system: INSTRUMENTATION_PROMPT,
       messages: [
@@ -169,7 +169,7 @@ async function generatePatterns(structure, instrumentation) {
     const existingPatterns = getPatternsByGenre(structure.genre);
     
     const response = await client.messages.create({
-      model: "claude-3-5-sonnet-20240620",
+      model: "claude-sonnet-4-20250514",
       max_tokens: 1200,
       system: PATTERN_PROMPT,
       messages: [
@@ -212,7 +212,7 @@ async function generatePatterns(structure, instrumentation) {
 async function integrateAndPolish(structure, instrumentation, patterns) {
   try {
     const response = await client.messages.create({
-      model: "claude-3-5-sonnet-20240620",
+      model: "claude-sonnet-4-20250514",
       max_tokens: 1000,
       system: INTEGRATION_PROMPT,
       messages: [

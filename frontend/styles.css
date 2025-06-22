@@ -8,6 +8,7 @@
   --border-color: #ddd;
   --success-color: #28a745;
   --error-color: #dc3545;
+  --loading-color: #f59e0b;
   --code-bg: #282c34;
 }
 
@@ -49,7 +50,7 @@ main {
 
 @media (min-width: 992px) {
   main {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
   }
 }
 
@@ -60,156 +61,211 @@ h2 {
   padding-bottom: 5px;
 }
 
-.input-section, .output-section {
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  padding: 20px;
+/* Strudel Player Section */
+.strudel-player-section {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 0;
+  margin-top: 2rem;
+  overflow: hidden;
 }
 
-.output-section {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-textarea {
-  width: 100%;
-  height: 150px;
-  padding: 12px;
-  border: 1px solid var(--border-color);
-  border-radius: 4px;
-  resize: vertical;
-  font-family: inherit;
-  font-size: 16px;
-  margin-bottom: 15px;
-}
-
-button {
-  background-color: var(--primary-color);
+.player-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
+  padding: 1.5rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.player-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.player-controls {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.player-controls .btn {
+  padding: 0.5rem 1rem;
   border: none;
-  padding: 10px 20px;
-  border-radius: 4px;
+  border-radius: 6px;
+  font-weight: 500;
   cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.3s;
+  transition: all 0.2s ease;
+  font-size: 0.9rem;
 }
 
-button:hover {
-  background-color: var(--secondary-color);
+.btn-primary {
+  background: #8b5cf6;
+  color: white;
 }
 
-button:disabled {
-  background-color: #cccccc;
+.btn-primary:hover:not(:disabled) {
+  background: #7c3aed;
+  transform: translateY(-1px);
+}
+
+.btn-success {
+  background: #10b981;
+  color: white;
+}
+
+.btn-success:hover:not(:disabled) {
+  background: #059669;
+  transform: translateY(-1px);
+}
+
+.btn-danger {
+  background: #ef4444;
+  color: white;
+}
+
+.btn-danger:hover:not(:disabled) {
+  background: #dc2626;
+  transform: translateY(-1px);
+}
+
+.btn-warning {
+  background: #f59e0b;
+  color: white;
+}
+
+.btn-warning:hover:not(:disabled) {
+  background: #d97706;
+  transform: translateY(-1px);
+}
+
+.btn:disabled {
+  opacity: 0.5;
   cursor: not-allowed;
 }
 
-.code-container {
-  position: relative;
+.player-content {
+  padding: 2rem;
 }
 
-.code-actions {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  display: flex;
-  gap: 10px;
-}
-
-.code-actions button {
-  padding: 5px;
-  border-radius: 4px;
-  background-color: rgba(255, 255, 255, 0.1);
-  color: white;
+.player-status {
   display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  padding: 0.75rem 1rem;
+  background: #f8fafc;
+  border-radius: 8px;
+  border-left: 4px solid #8b5cf6;
 }
 
-pre {
-  background-color: var(--code-bg);
-  border-radius: 4px;
-  padding: 15px;
-  overflow-x: auto;
-  margin-top: 10px;
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #10b981;
+  animation: pulse 2s infinite;
 }
 
-code {
-  font-family: 'Fira Code', Consolas, Monaco, 'Andale Mono', monospace;
-  font-size: 14px;
+.status-dot.loading {
+  background: #f59e0b;
 }
 
-.strudel-iframe-container {
-  min-height: 300px;
+.status-dot.error {
+  background: #ef4444;
 }
 
-#iframe-placeholder {
-  height: 300px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #f0f0f0;
-  border-radius: 4px;
-  border: 1px dashed var(--border-color);
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
 }
 
-iframe {
+.status-text {
+  font-weight: 500;
+  color: #374151;
+}
+
+.strudel-container {
   width: 100%;
   height: 500px;
-  border: none;
-  border-radius: 4px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 2px solid #e5e7eb;
+  background: #1a1a1a;
 }
 
-.note {
-  font-style: italic;
-  color: #666;
-  margin-bottom: 10px;
+.strudel-container strudel-editor {
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 
-/* Success message styling */
-.success-message {
-  background-color: #d4edda;
-  color: #155724;
-  padding: 12px;
-  border-radius: 6px;
-  border: 1px solid #c3e6cb;
-  margin: 10px 0;
-  display: none;
+.strudel-container strudel-editor .cm-editor {
+  height: 100%;
+  background: #1e1e1e;
+  color: #d4d4d4;
 }
 
-/* Strudel REPL Styling */
-.strudel-iframe-container {
-    background: #f8f9fa;
-    border-radius: 8px;
-    padding: 20px;
-    margin-top: 20px;
+.strudel-container strudel-editor .cm-content {
+  padding: 10px;
+  min-height: 100%;
 }
 
-/* Ensure Strudel editor is visible and properly sized */
-strudel-editor {
-  display: block !important;
-  width: 100% !important;
-  min-height: 400px !important;
-  height: 400px !important;
-  background: #1a1a1a !important;
-  border: 2px solid #333 !important;
-  border-radius: 8px !important;
-  overflow: hidden !important;
+.strudel-container strudel-editor .cm-focused {
+  outline: none;
 }
 
-/* Force visibility for Strudel components */
-strudel-editor * {
-    visibility: visible !important;
+.strudel-container strudel-editor .cm-scroller {
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 14px;
+  line-height: 1.5;
 }
 
-#strudel-player {
+/* Responsive Design */
+@media (max-width: 768px) {
+  .player-header {
+    flex-direction: column;
+    text-align: center;
+    padding: 1rem;
+  }
+  
+  .player-controls {
+    justify-content: center;
     width: 100%;
-    min-height: 400px;
-    background: #f0f0f0;
-    border: 2px solid #ddd;
-    border-radius: 4px;
-    padding: 10px;
+  }
+  
+  .player-controls .btn {
+    flex: 1;
+    min-width: 80px;
+  }
+  
+  .player-content {
+    padding: 1rem;
+  }
+  
+  .strudel-container {
+    height: 400px;
+  }
+}
+
+@media (max-width: 480px) {
+  .player-controls {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .player-controls .btn {
+    width: 100%;
+  }
+  
+  .strudel-container {
+    height: 350px;
+  }
 }
 
 footer {
@@ -283,4 +339,115 @@ footer a:hover {
 
 .fallback-link a:hover {
   text-decoration: underline;
+}
+
+/* Status indicator styling */
+.status-indicator {
+  background-color: #f8f9fa;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: 8px 12px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: var(--text-color);
+}
+
+.status-indicator.loading {
+  background-color: #fff3cd;
+  border-color: #ffeaa7;
+  color: #856404;
+}
+
+.status-indicator.success {
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+  color: #155724;
+}
+
+.status-indicator.error {
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+  color: #721c24;
+}
+
+.note {
+  font-style: italic;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.success-message {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #c3e6cb;
+  margin: 10px 0;
+  display: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .player-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 15px;
+  }
+  
+  .player-controls {
+    justify-content: center;
+  }
+  
+  .control-btn {
+    min-width: auto;
+    flex: 1;
+    max-width: 120px;
+  }
+  
+  .player-content {
+    grid-template-columns: 1fr;
+  }
+  
+  .code-panel-header, .player-panel-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  
+  .code-actions {
+    justify-content: center;
+  }
+}
+
+/* Additional button styling */
+textarea {
+  width: 100%;
+  height: 150px;
+  padding: 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  resize: vertical;
+  font-family: inherit;
+  font-size: 16px;
+  margin-bottom: 15px;
+}
+
+button {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: var(--secondary-color);
+}
+
+button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
 }

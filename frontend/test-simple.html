@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Strudel Test</title>
+</head>
+<body>
+    <h1>Simple Strudel Test</h1>
+    
+    <button onclick="testStrudel()">Test Strudel Component</button>
+    <button onclick="testGeneration()">Test Music Generation</button>
+    
+    <div id="output"></div>
+    
+    <h2>Strudel Editor:</h2>
+    <strudel-editor id="testEditor" style="width: 100%; height: 300px; border: 2px solid #333;">
+        <!-- 
+        setcps(1)
+        s("bd sd hh cp")
+        -->
+    </strudel-editor>
+    
+    <script src="https://unpkg.com/@strudel/repl@latest"></script>
+    <script>
+        function log(message) {
+            const output = document.getElementById('output');
+            output.innerHTML += '<div>' + new Date().toLocaleTimeString() + ': ' + message + '</div>';
+            console.log(message);
+        }
+        
+        function testStrudel() {
+            log('Testing Strudel component...');
+            
+            const editor = document.getElementById('testEditor');
+            log('Editor element: ' + (editor ? 'Found' : 'Not found'));
+            
+            if (editor) {
+                log('Editor tagName: ' + editor.tagName);
+                log('Editor innerHTML: ' + editor.innerHTML);
+                log('Editor.editor API: ' + (editor.editor ? 'Available' : 'Not available'));
+                
+                if (editor.editor) {
+                    log('Available methods: setCode=' + (typeof editor.editor.setCode) + 
+                        ', start=' + (typeof editor.editor.start) + 
+                        ', stop=' + (typeof editor.editor.stop) + 
+                        ', evaluate=' + (typeof editor.editor.evaluate));
+                    
+                    // Try to load new code using the API
+                    const newCode = `
+setcps(2)
+s("bd ~ sd ~")
+                    `;
+                    
+                    try {
+                        log('Setting code using setCode API...');
+                        editor.editor.setCode(newCode);
+                        
+                        log('Evaluating code...');
+                        editor.editor.evaluate();
+                        
+                        log('Starting playback...');
+                        editor.editor.start();
+                        
+                        log('Code loaded and playing successfully!');
+                    } catch (error) {
+                        log('Error using API: ' + error.message);
+                    }
+                } else {
+                    // Fallback to HTML comment method
+                    editor.innerHTML = `<!-- 
+setcps(2)
+s("bd ~ sd ~")
+ -->`;
+                    log('Used HTML comment fallback method');
+                }
+            }
+        }
+        
+        async function testGeneration() {
+            log('Testing music generation...');
+            
+            try {
+                const response = await fetch('/api/generate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ prompt: 'simple house beat' })
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                log('Generated code: ' + data.code);
+                
+                // Load into Strudel
+                const editor = document.getElementById('testEditor');
+                if (editor) {
+                    editor.innerHTML = `<!-- ${data.code} -->`;
+                    log('Code loaded into Strudel editor');
+                }
+                
+            } catch (error) {
+                log('Error: ' + error.message);
+            }
+        }
+        
+        // Check if Strudel is loaded
+        setTimeout(() => {
+            log('Checking Strudel availability...');
+            log('customElements.get("strudel-editor"): ' + customElements.get('strudel-editor'));
+        }, 1000);
+    </script>
+</body>
+</html>
