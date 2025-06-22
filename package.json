@@ -1,0 +1,29 @@
+{
+  "name": "strudel-claude-music-generator",
+  "version": "0.1.0",
+  "description": "Text-to-music generator using Claude API and Strudel",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "dev": "nodemon backend/server.js",
+    "strudel": "cd strudel && pnpm dev",
+    "setup": "npm install && git clone https://codeberg.org/uzu/strudel.git && cd strudel && pnpm i"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.54.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "http-proxy-middleware": "^3.0.5",
+    "node-fetch": "^3.3.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "author": "",
+  "license": "AGPL-3.0"
+}

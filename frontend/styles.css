@@ -1,0 +1,286 @@
+/* styles.css - Styling for the Strudel + Claude text-to-music generator */
+
+:root {
+  --primary-color: #6a0dad;
+  --secondary-color: #9b59b6;
+  --background-color: #f8f9fa;
+  --text-color: #333;
+  --border-color: #ddd;
+  --success-color: #28a745;
+  --error-color: #dc3545;
+  --code-bg: #282c34;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  color: var(--text-color);
+  background-color: var(--background-color);
+  padding: 20px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+header h1 {
+  color: var(--primary-color);
+  margin-bottom: 10px;
+}
+
+main {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 30px;
+}
+
+@media (min-width: 992px) {
+  main {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+h2 {
+  color: var(--primary-color);
+  margin-bottom: 15px;
+  border-bottom: 2px solid var(--secondary-color);
+  padding-bottom: 5px;
+}
+
+.input-section, .output-section {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+.output-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+textarea {
+  width: 100%;
+  height: 150px;
+  padding: 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  resize: vertical;
+  font-family: inherit;
+  font-size: 16px;
+  margin-bottom: 15px;
+}
+
+button {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: var(--secondary-color);
+}
+
+button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.code-container {
+  position: relative;
+}
+
+.code-actions {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+.code-actions button {
+  padding: 5px;
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+pre {
+  background-color: var(--code-bg);
+  border-radius: 4px;
+  padding: 15px;
+  overflow-x: auto;
+  margin-top: 10px;
+}
+
+code {
+  font-family: 'Fira Code', Consolas, Monaco, 'Andale Mono', monospace;
+  font-size: 14px;
+}
+
+.strudel-iframe-container {
+  min-height: 300px;
+}
+
+#iframe-placeholder {
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f0f0f0;
+  border-radius: 4px;
+  border: 1px dashed var(--border-color);
+}
+
+iframe {
+  width: 100%;
+  height: 500px;
+  border: none;
+  border-radius: 4px;
+}
+
+.note {
+  font-style: italic;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+/* Success message styling */
+.success-message {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #c3e6cb;
+  margin: 10px 0;
+  display: none;
+}
+
+/* Strudel REPL Styling */
+.strudel-iframe-container {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+/* Ensure Strudel editor is visible and properly sized */
+strudel-editor {
+  display: block !important;
+  width: 100% !important;
+  min-height: 400px !important;
+  height: 400px !important;
+  background: #1a1a1a !important;
+  border: 2px solid #333 !important;
+  border-radius: 8px !important;
+  overflow: hidden !important;
+}
+
+/* Force visibility for Strudel components */
+strudel-editor * {
+    visibility: visible !important;
+}
+
+#strudel-player {
+    width: 100%;
+    min-height: 400px;
+    background: #f0f0f0;
+    border: 2px solid #ddd;
+    border-radius: 4px;
+    padding: 10px;
+}
+
+footer {
+  margin-top: 40px;
+  text-align: center;
+  color: #666;
+  font-size: 14px;
+}
+
+footer a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+.spinner {
+  display: none;
+  width: 30px;
+  height: 30px;
+  border: 3px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  border-top-color: var(--primary-color);
+  animation: spin 1s ease-in-out infinite;
+  margin: 10px auto;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.error-message {
+  color: var(--error-color);
+  margin-top: 10px;
+  padding: 10px;
+  background-color: rgba(220, 53, 69, 0.1);
+  border-radius: 4px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.loading-message {
+  color: var(--primary-color);
+  margin-top: 10px;
+  padding: 10px;
+  background-color: rgba(106, 13, 173, 0.1);
+  border-radius: 4px;
+  text-align: center;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.fallback-link {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: rgba(106, 13, 173, 0.05);
+  border-radius: 4px;
+  text-align: center;
+}
+
+.fallback-link a {
+  color: var(--primary-color);
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+.fallback-link a:hover {
+  text-decoration: underline;
+}
